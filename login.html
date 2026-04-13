@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login do Paciente - Hospital Saúde Total</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .login-header i {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .login-header h2 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .login-header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .login-body {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .input-group {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .input-group-text {
+            background: white;
+            border-right: none;
+            color: #667eea;
+        }
+
+        .form-control {
+            border-left: none;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+
+        .input-group:focus-within {
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .forgot-password a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .forgot-password a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 20px;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            background: white;
+            border-left: none;
+        }
+
+        .password-toggle:hover {
+            background: #f8f9fa;
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .login-footer p {
+            margin: 0;
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 576px) {
+            .login-body {
+                padding: 30px 20px;
+            }
+            
+            .login-header {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <i class="fas fa-hospital-user"></i>
+            <h2>Bem-vindo Paciente</h2>
+            <p>Hospital Saúde Total - Acesse sua conta</p>
+        </div>
+        
+        <div class="login-body">
+            <div id="alertMessage" style="display: none;">
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <span id="alertText"></span>
+                </div>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope me-2"></i>Email ou CPF
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" class="form-control" id="email" 
+                               placeholder="Digite seu email ou CPF" 
+                               autocomplete="username" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock me-2"></i>Senha
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="fas fa-key"></i>
+                        </span>
+                        <input type="password" class="form-control" id="password" 
+                               placeholder="Digite sua senha" 
+                               autocomplete="current-password" required>
+                        <span class="input-group-text password-toggle" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-login">
+                    <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                </button>
+                
+                <div class="forgot-password">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">
+                        <i class="fas fa-question-circle me-1"></i>Esqueceu sua senha?
+                    </a>
+                </div>
+            </form>
+        </div>
+        
+        <div class="login-footer">
+            <p>
+                <i class="fas fa-shield-alt me-1"></i>
+                Ambiente seguro e confidencial
+            </p>
+            <p class="mt-2">
+                <small>Precisa de ajuda? Ligue (11) 9999-8888</small>
+            </p>
+        </div>
+    </div>
+    
+    <!-- Modal Esqueci a Senha -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-key me-2"></i>Recuperar Senha
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Digite seu email cadastrado para receber as instruções de recuperação de senha.</p>
+                    <input type="email" class="form-control" id="recoveryEmail" 
+                           placeholder="seuemail@exemplo.com">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="sendRecoveryEmail()">
+                        Enviar Instruções
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Credenciais de exemplo (em um sistema real, isso seria verificado no backend)
+        const validCredentials = [
+            { email: "paciente@hospital.com", password: "123456", name: "João Silva" },
+            { email: "maria@hospital.com", password: "senha123", name: "Maria Santos" },
+            { email: "123.456.789-00", password: "paciente123", name: "Carlos Oliveira" }
+        ];
+        
+        // Mostrar alerta
+        function showAlert(message, type = 'danger') {
+            const alertDiv = document.getElementById('alertMessage');
+            const alertText = document.getElementById('alertText');
+            const alertBox = alertDiv.querySelector('.alert');
+            
+            alertText.textContent = message;
+            alertBox.classList.remove('alert-danger', 'alert-success');
+            alertBox.classList.add(`alert-${type}`);
+            alertDiv.style.display = 'block';
+            
+            // Esconder alerta após 5 segundos
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Validar login
+        function validateLogin(email, password) {
+            // Verificar se os campos estão preenchidos
+            if (!email || !password) {
+                showAlert('Por favor, preencha todos os campos!');
+                return false;
+            }
+            
+            // Verificar credenciais
+            const user = validCredentials.find(cred => 
+                cred.email.toLowerCase() === email.toLowerCase() && 
+                cred.password === password
+            );
+            
+            if (user) {
+                // Login bem sucedido
+                showAlert(`Bem-vindo(a) ${user.name}! Redirecionando...`, 'success');
+                
+                // Simular redirecionamento após 2 segundos
+                setTimeout(() => {
+                    // Aqui você pode redirecionar para a página do paciente
+                    // window.location.href = "/dashboard-paciente.html";
+                    console.log('Redirecionando para o dashboard do paciente...');
+                    alert(`Login realizado com sucesso!\nBem-vindo(a) ${user.name}!`);
+                }, 2000);
+                
+                return true;
+            } else {
+                showAlert('Email/CPF ou senha incorretos. Tente novamente.');
+                return false;
+            }
+        }
+        
+        // Event listener do formulário
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            
+            validateLogin(email, password);
+        });
+        
+        // Toggle para mostrar/esconder senha
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Mudar ícone
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+        
+        // Função para enviar email de recuperação
+        function sendRecoveryEmail() {
+            const recoveryEmail = document.getElementById('recoveryEmail').value.trim();
+            
+            if (!recoveryEmail) {
+                alert('Por favor, digite seu email para recuperação.');
+                return;
+            }
+            
+            // Verificar se o email existe (simulação)
+            const emailExists = validCredentials.some(cred => 
+                cred.email.toLowerCase() === recoveryEmail.toLowerCase()
+            );
+            
+            if (emailExists) {
+                alert(`Instruções de recuperação enviadas para ${recoveryEmail}\nVerifique sua caixa de entrada.`);
+                const modal = bootstrap.Modal.getInstance(document.getElementById('forgotPasswordModal'));
+                modal.hide();
+                document.getElementById('recoveryEmail').value = '';
+            } else {
+                alert('Email não encontrado em nosso sistema. Verifique se está correto.');
+            }
+        }
+        
+        // Adicionar máscara para CPF (opcional)
+        document.getElementById('email').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Se for CPF (11 dígitos), aplicar máscara
+            if (value.length === 11) {
+                value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                e.target.value = value;
+            }
+        });
+        
+        // Adicionar validação em tempo real
+        document.getElementById('email').addEventListener('blur', function() {
+            const value = this.value.trim();
+            if (value && !value.includes('@') && value.replace(/\D/g, '').length !== 11) {
+                this.classList.add('is-invalid');
+                setTimeout(() => {
+                    this.classList.remove('is-invalid');
+                }, 3000);
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
+        
+        // Limpar alerta quando começar a digitar
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('alertMessage').style.display = 'none';
+        });
+        
+        document.getElementById('password').addEventListener('input', function() {
+            document.getElementById('alertMessage').style.display = 'none';
+        });
+        
+        // Efeito de animação nos campos
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.parentElement.style.transform = 'scale(1.02)';
+                this.parentElement.parentElement.style.transition = 'transform 0.3s';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.parentElement.style.transform = 'scale(1)';
+            });
+        });
+        
+        // Prevenir envio do formulário com Enter (já tratado pelo submit)
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+        
+        // Log para demonstração (remover em produção)
+        console.log('Credenciais de teste:');
+        console.log('1. Email: paciente@hospital.com | Senha: 123456');
+        console.log('2. Email: maria@hospital.com | Senha: senha123');
+        console.log('3. CPF: 123.456.789-00 | Senha: paciente123');
+    </script>
+</body>
+</html>
