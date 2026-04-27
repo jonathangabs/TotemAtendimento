@@ -1,122 +1,139 @@
-# Orientacao sobre commits
+# Orientação sobre commits
 
-- instalacao do ambiente no vscode(caso nao tenha o vscode, realize a instalacao)
+- Instalação do ambiente no VS Code (caso não tenha o VS Code, realize a instalação).
 
-- o GIT e uma aplicacao que envolve comandos e nao e nativa da maquina windows, e nem do vscode, sendo nescessario a instalcao, assim podedo por meio de comando e a conta do GITHUB, realizar uploads e downloads...
+- O Git é uma aplicação baseada em comandos e não é nativa do Windows nem do VS Code. Sendo assim, é necessária a instalação. Com ele, por meio de comandos e da sua conta do GitHub, é possível realizar uploads e downloads de arquivos.
 
-- baixe o arquivo do GIT no link oficial:
-https://git-scm.com/install/windows
+- Baixe o instalador do Git no link oficial:  
+https://git-scm.com/install/windows  
 
-ou digite git instalacao ou instalar no navegador/ google
+Ou pesquise no navegador (Google): **git instalação** ou **instalar git**.
 
-![primeiro passo](_img/img_orientacao_commit/passo_01.png)
+![Primeiro passo](_img/img_orientacao_commit/passo_01.png)
 
-------------------------------------
-apos a instalacao com sua conta GITHUB. acesse o repositorio do projeto...
-https://github.com/jonathangabs/TotemAtendimento/tree/main
+---
 
-abra o vscode e siga os passos
-------------------------------------
+Após a instalação e com sua conta do GitHub, acesse o repositório do projeto:  
+https://github.com/jonathangabs/TotemAtendimento/tree/main  
 
-com o vscode aberto realize este passo 
-clice em conecttar a conta:
-![segundo passo](_img/img_orientacao_commit/passo_02.png)
+Abra o VS Code e siga os passos:
 
-e depois em : open remote repositor
-![segundo passo](_img/img_orientacao_commit/passo_02-1.png)
+---
 
-confirma para logar/realizar o link entre as duas plataformas:
-![segundo passo](_img/img_orientacao_commit/passo_02-2.png)
+Com o VS Code aberto, realize este passo:  
+Clique em **Conectar à conta**:
 
-------------------------------------
+![Segundo passo](_img/img_orientacao_commit/passo_02.png)
 
-acesse o repositorio do projeto:
-https://github.com/jonathangabs/TotemAtendimento/tree/main
+Depois clique em **Open Remote Repository**:
 
-e copie o link para download:
-![terceiro passo](_img/img_orientacao_commit/passo_03.png)
+![Segundo passo](_img/img_orientacao_commit/passo_02-1.png)
 
-------------------------------------
+Confirme para logar e realizar o vínculo entre as duas plataformas:
 
-em file ou arquivos 
-selecione new window ou novo arquivo 
-![quarto passo](_img/img_orientacao_commit/passo_04.png)
+![Segundo passo](_img/img_orientacao_commit/passo_02-2.png)
 
-------------------------------------
+---
 
-nas duas folhas acima e esquerda temos a aba que direciona para as opcoes:
-click e depois cole o link q foi copiado do repositorio do projeto no github:
+Acesse o repositório do projeto:  
+https://github.com/jonathangabs/TotemAtendimento/tree/main  
 
-![quinto passo](_img/img_orientacao_commit/passo_05.png)
+E copie o link para download:
 
-------------------------------------
+![Terceiro passo](_img/img_orientacao_commit/passo_03.png)
 
-crie uma pasta na aba que apareceu.
-sugestao:
-gestao_projeto_carol
+---
 
-e dentro dela save o repositorio:
-![sexto passo](_img/img_orientacao_commit/passo_06.png)
+Em **File** (Arquivo), selecione **New Window** (Nova janela):
 
-ficando assim:
-![sexto passo](_img/img_orientacao_commit/passo_06-1.png)
+![Quarto passo](_img/img_orientacao_commit/passo_04.png)
 
-------------------------------------
-apos iniciar e/ou alterar os arquivos
-sera nescessariao realizr os comando para upar o aqruivo para o github
+---
 
-abra o terminal e verifique se esta na pasta que conten o projeto 
+Na aba lateral esquerda, selecione a opção indicada.  
+Clique e cole o link copiado do repositório do GitHub:
 
-![setimo passo](_img/img_orientacao_commit/passo_07.png)
+![Quinto passo](_img/img_orientacao_commit/passo_05.png)
 
+---
 
-apos use a seguencia de codigos 
+Crie uma pasta na aba que apareceu.  
+Sugestão:  
+`gestao_projeto_carol`
 
-- para baixar e/ou atualizar a maquina local com a nuvem
+E dentro dela salve o repositório:
+
+![Sexto passo](_img/img_orientacao_commit/passo_06.png)
+
+Ficando assim:
+
+![Sexto passo](_img/img_orientacao_commit/passo_06-1.png)
+
+---
+
+Após iniciar e/ou alterar os arquivos, será necessário realizar os comandos para enviar (upload) para o GitHub.
+
+Abra o terminal e verifique se está na pasta que contém o projeto:
+
+![Sétimo passo](_img/img_orientacao_commit/passo_07.png)
+
+---
+
+Depois, use a sequência de comandos:
+
+- Para baixar e/ou atualizar a máquina local com a nuvem:
+
+```bash
 git pull
+```
 
-- para adcionar todo os arquivos que foram altrado na maquina local ao commit
+- Para adicionar todos os arquivos alterados na máquina local ao commit:
+
+```bash
 git add .
+```
 
-- para colocar uma mensagem ao subir o arquivo 
-(lembrando qua na mensagem apos a descricao tem q vir as siglas ab# e o numero da task)
+- Para adicionar uma mensagem ao commit:  
+(Lembre-se: após a descrição, deve conter as siglas **ab#** e o número da task)
 
+```bash
 git commit -m ""
+```
 
-ex:
-git commit -m "descricao de como realizar os commit_v1  ab#65"
+Exemplo:
 
-e finalizando 
-- para subir para a nuvem os arquivos alterado usa
+```bash
+git commit -m "descricao de como realizar os commits_v1 ab#65"
+```
+
+- Para enviar os arquivos para a nuvem:
+
+```bash
 git push
+```
 
-- note aqui que meu usuario nao esta conectado:
-![oitavo passo](_img/img_orientacao_commit/passo_07-01.png)
+---
 
-- note aqui que apenas copiei e alterei os comandos, para minhas credenciais
-![oitavo passo](_img/img_orientacao_commit/passo_07-02.png)
+- Note aqui que o usuário não está conectado:
 
-    git config --global user.email "you@example.com"
-    git config --global user.name "Your Name"
+![Sétimo passo parte 1](_img/img_orientacao_commit/passo_07-01.png)
 
-- note q segue o commite normal apos add as credenciais:
-(a esquerda os arquivos ficaram todos, brancos ou seja nao estao mais diferente da ultima atualizacao "pull ou push", so estao verdes os que eu alterei no momento da producao desse arquivo)
+- Neste exemplo, foram ajustados os comandos com as credenciais:
 
-![oitavo passo](_img/img_orientacao_commit/passo_07-03.png)
+![Sétimo passo parte 2](_img/img_orientacao_commit/passo_07-02.png)
 
+```bash
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
 
-- finalizando o commit ja cadastrado:
-![nono passo](_img/img_orientacao_commit/passo_07-04.png)
+- Após adicionar as credenciais, o commit segue normalmente:  
+(À esquerda, os arquivos ficam brancos, indicando que não há diferenças em relação à última atualização — pull ou push. Os arquivos em verde são os alterados no momento.)
 
+![Sétimo passo parte 3](_img/img_orientacao_commit/passo_07-03.png)
 
-![decimo passo](_img/img_orientacao_commit/passo_10.png)
-![decimo primeiro passo](_img/img_orientacao_commit/passo_11.png)
-![decimo segundo passo](_img/img_orientacao_commit/passo_12.png)
-![decimo terceiro passo](_img/img_orientacao_commit/passo_13.png)
-![decimo quarto passo](_img/img_orientacao_commit/passo_14.png)
-![decimo quinto passo](_img/img_orientacao_commit/passo_15.png)
-![decimo sexto passo](_img/img_orientacao_commit/passo_16.png)
-![decimo setimo passo](_img/img_orientacao_commit/passo_17.png)
-![decimo oitavo passo](_img/img_orientacao_commit/passo_18.png)
-![decimo nono passo](_img/img_orientacao_commit/passo_19.png)
-![vigesimo passo](_img/img_orientacao_commit/passo_20.png)
+---
+
+- Finalizando o commit já cadastrado:
+
+![Sétimo passo parte 4](_img/img_orientacao_commit/passo_07-04.png)
