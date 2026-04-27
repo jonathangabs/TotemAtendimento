@@ -90,9 +90,25 @@ e finalizando
 - para subir para a nuvem os arquivos alterado usa
 git push
 
+- note aqui que meu usuario nao esta conectado:
+![oitavo passo](_img/img_orientacao_commit/passo_07-01.png)
 
-![oitavo passo](_img/img_orientacao_commit/passo_08.png)
-![nono passo](_img/img_orientacao_commit/passo_09.png)
+- note aqui que apenas copiei e alterei os comandos, para minhas credenciais
+![oitavo passo](_img/img_orientacao_commit/passo_07-02.png)
+
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+
+- note q segue o commite normal apos add as credenciais:
+(a esquerda os arquivos ficaram todos, brancos ou seja nao estao mais diferente da ultima atualizacao "pull ou push", so estao verdes os que eu alterei no momento da producao desse arquivo)
+
+![oitavo passo](_img/img_orientacao_commit/passo_07-03.png)
+
+
+- finalizando o commit ja cadastrado:
+![nono passo](_img/img_orientacao_commit/passo_07-04.png)
+
+
 ![decimo passo](_img/img_orientacao_commit/passo_10.png)
 ![decimo primeiro passo](_img/img_orientacao_commit/passo_11.png)
 ![decimo segundo passo](_img/img_orientacao_commit/passo_12.png)
