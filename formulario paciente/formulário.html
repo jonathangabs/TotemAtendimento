@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Paciente - Hospital Vida</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container {
+            padding: 30px 15px;
+        }
+        
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .card-header h2 {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .card-header i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .card-body {
+            padding: 30px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+        
+        .form-control.is-invalid, .form-select.is-invalid {
+            border-color: var(--danger-color);
+        }
+        
+        .btn-cadastrar {
+            background: linear-gradient(135deg, var(--success-color) 0%, #219a52 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cadastrar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-limpar {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .required-field::after {
+            content: " *";
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+        
+        .alert-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideInRight 0.5s ease;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-hospital-user"></i>
+                        <h2>Cadastro de Paciente</h2>
+                        <p class="mb-0">Hospital Vida - Excelência em Cuidados</p>
+                    </div>
+                    <div class="card-body">
+                        <form id="cadastroForm">
+                            <!-- Dados Pessoais -->
+                            <h4 class="mb-4 text-primary">
+                                <i class="fas fa-user-circle me-2"></i>Dados Pessoais
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label required-field">Nome Completo</label>
+                                    <input type="text" class="form-control" id="nome" name="nome" required>
+                                    <div class="invalid-feedback">Por favor, informe o nome completo.</div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="dataNascimento" class="form-label required-field">Data de Nascimento</label>
+                                    <input type="date" class="form-control" id="dataNascimento" name="dataNascimento" required>
+                                    <div class="invalid-feedback">Por favor, informe a data de nascimento.</div>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="idade" class="form-label">Idade</label>
+                                    <input type="text" class="form-control" id="idade" readonly>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="cpf" class="form-label required-field">CPF</label>
+                                    <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" placeholder="000.000.000-00" required>
+                                    <div class="invalid-feedback">CPF inválido. Use o formato 000.000.000-00</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="rg" class="form-label">RG</label>
+                                    <input type="text" class="form-control" id="rg" name="rg" placeholder="00.000.000-0">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="telefone" class="form-label required-field">Telefone</label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                                    <div class="invalid-feedback">Por favor, informe um telefone válido.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label required-field">E-mail</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="exemplo@email.com" required>
+                                    <div class="invalid-feedback">Por favor, informe um e-mail válido.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="genero" class="form-label">Gênero</label>
+                                    <select class="form-select" id="genero" name="genero">
+                                        <option value="">Selecione...</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="feminino">Feminino</option>
+                                        <option value="outro">Outro</option>
+                                        <option value="nao-informar">Prefiro não informar</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="estadoCivil" class="form-label">Estado Civil</label>
+                                    <select class="form-select" id="estadoCivil" name="estadoCivil">
+                                        <option value="">Selecione...</option>
+                                        <option value="solteiro">Solteiro(a)</option>
+                                        <option value="casado">Casado(a)</option>
+                                        <option value="divorciado">Divorciado(a)</option>
+                                        <option value="viuvo">Viúvo(a)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- Endereço -->
+                            <h4 class="mt-4 mb-4 text-primary">
+                                <i class="fas fa-location-dot me-2"></i>Endereço
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="cep" class="form-label required-field">CEP</label>
+                                    <input type="text" class="form-control" id="cep" name="cep" maxlength="9" placeholder="00000-000" required>
+                                    <div class="invalid-feedback">CEP inválido. Use o formato 00000-000</div>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label for="logradouro" class="form-label required-field">Logradouro</label>
+                                    <input type="text" class="form-control" id="logradouro" name="logradouro" required>
+                                    <div class="invalid-feedback">Por favor, informe o logradouro.</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="numero" class="form-label required-field">Número</label>
+                                    <input type="text" class="form-control" id="numero" name="numero" required>
+                                    <div class="invalid-feedback">Por favor, informe o número.</div>
+                                </div>
+                                <div class="col-md-5 mb-3">
+                                    <label for="bairro" class="form-label required-field">Bairro</label>
+                                    <input type="text" class="form-control" id="bairro" name="bairro" required>
+                                    <div class="invalid-feedback">Por favor, informe o bairro.</div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="cidade" class="form-label required-field">Cidade</label>
+                                    <input type="text" class="form-control" id="cidade" name="cidade" required>
+                                    <div class="invalid-feedback">Por favor, informe a cidade.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Informações Médicas -->
+                            <h4 class="mt-4 mb-4 text-primary">
+                                <i class="fas fa-notes-medical me-2"></i>Informações Médicas
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="tipoSanguineo" class="form-label">Tipo Sanguíneo</label>
+                                    <select class="form-select" id="tipoSanguineo" name="tipoSanguineo">
+                                        <option value="">Selecione...</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="planoSaude" class="form-label">Plano de Saúde</label>
+                                    <input type="text" class="form-control" id="planoSaude" name="planoSaude" placeholder="Nome do plano de saúde">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="alergias" class="form-label">Alergias</label>
+                                <textarea class="form-control" id="alergias" name="alergias" rows="2" placeholder="Informe alergias conhecidas (medicamentos, alimentos, etc.)"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="doencasPreexistentes" class="form-label">Doenças Pré-existentes</label>
+                                <textarea class="form-control" id="doencasPreexistentes" name="doencasPreexistentes" rows="2" placeholder="Informe doenças pré-existentes (diabetes, hipertensão, etc.)"></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="medicamentos" class="form-label">Medicamentos em Uso</label>
+                                <textarea class="form-control" id="medicamentos" name="medicamentos" rows="2" placeholder="Informe medicamentos que utiliza regularmente"></textarea>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="row mt-4">
+                                <div class="col-md-6 mb-3">
+                                    <button type="button" class="btn btn-limpar" id="btnLimpar">
+                                        <i class="fas fa-eraser me-2"></i>Limpar Formulário
+                                    </button>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-cadastrar">
+                                        <i class="fas fa-check-circle me-2"></i>Cadastrar Paciente
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript Personalizado -->
+    <script>
+        // Máscaras para campos
+        function mascaraCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            return cpf;
+        }
+        
+        function mascaraTelefone(telefone) {
+            telefone = telefone.replace(/\D/g, '');
+            telefone = telefone.replace(/(\d{2})(\d)/, '($1) $2');
+            telefone = telefone.replace(/(\d{5})(\d)/, '$1-$2');
+            return telefone;
+        }
+        
+        function mascaraCEP(cep) {
+            cep = cep.replace(/\D/g, '');
+            cep = cep.replace(/(\d{5})(\d)/, '$1-$2');
+            return cep;
+        }
+        
+        // Aplicar máscaras
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            e.target.value = mascaraCPF(e.target.value);
+        });
+        
+        document.getElementById('telefone').addEventListener('input', function(e) {
+            e.target.value = mascaraTelefone(e.target.value);
+        });
+        
+        document.getElementById('cep').addEventListener('input', function(e) {
+            e.target.value = mascaraCEP(e.target.value);
+        });
+        
+        // Calcular idade automaticamente
+        document.getElementById('dataNascimento').addEventListener('change', function() {
+            const dataNasc = new Date(this.value);
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - dataNasc.getFullYear();
+            const mes = hoje.getMonth() - dataNasc.getMonth();
+            if (mes < 0 || (mes === 0 && hoje.getDate() < dataNasc.getDate())) {
+                idade--;
+            }
+            if (!isNaN(idade) && idade >= 0) {
+                document.getElementById('idade').value = idade + ' anos';
+            } else {
+                document.getElementById('idade').value = '';
+            }
+        });
+        
+        // Buscar endereço por CEP (ViaCEP API)
+        document.getElementById('cep').addEventListener('blur', async function() {
+            const cep = this.value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                try {
+                    const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+                    const data = await response.json();
+                    
+                    if (!data.erro) {
+                        document.getElementById('logradouro').value = data.logradouro || '';
+                        document.getElementById('bairro').value = data.bairro || '';
+                        document.getElementById('cidade').value = data.localidade || '';
+                        document.getElementById('numero').focus();
+                    } else {
+                        mostrarAlerta('CEP não encontrado!', 'warning');
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar CEP:', error);
+                    mostrarAlerta('Erro ao buscar CEP. Verifique sua conexão.', 'danger');
+                }
+            }
+        });
+        
+        // Função para mostrar alertas
+        function mostrarAlerta(mensagem, tipo) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${tipo} alert-message`;
+            alertDiv.innerHTML = `
+                <i class="fas fa-${tipo === 'success' ? 'check-circle' : tipo === 'danger' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                ${mensagem}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+        
+        // Validar CPF
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            if (cpf.length !== 11) return false;
+            
+            // Verificar se todos os dígitos são iguais
+            if (/^(\d)\1{10}$/.test(cpf)) return false;
+            
+            // Calcular primeiro dígito verificador
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = 11 - (soma % 11);
+            let digito1 = resto === 10 || resto === 11 ? 0 : resto;
+            
+            if (digito1 !== parseInt(cpf.charAt(9))) return false;
+            
+            // Calcular segundo dígito verificador
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = 11 - (soma % 11);
+            let digito2 = resto === 10 || resto === 11 ? 0 : resto;
+            
+            return digito2 === parseInt(cpf.charAt(10));
+        }
+        
+        // Validar formulário
+        function validarFormulario() {
+            let isValid = true;
+            
+            // Resetar validações
+            document.querySelectorAll('.form-control, .form-select').forEach(field => {
+                field.classList.remove('is-invalid');
+            });
+            
+            // Validar nome
+            const nome = document.getElementById('nome');
+            if (!nome.value.trim()) {
+                nome.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validar data de nascimento
+            const dataNascimento = document.getElementById('dataNascimento');
+            if (!dataNascimento.value) {
+                dataNascimento.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validar CPF
+            const cpf = document.getElementById('cpf');
+            if (!validarCPF(cpf.value)) {
+                cpf.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validar telefone
+            const telefone = document.getElementById('telefone');
+            if (!telefone.value || telefone.value.replace(/\D/g, '').length !== 11) {
+                telefone.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validar email
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email.value || !emailRegex.test(email.value)) {
+                email.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            // Validar endereço
+            const cep = document.getElementById('cep');
+            const logradouro = document.getElementById('logradouro');
+            const numero = document.getElementById('numero');
+            const bairro = document.getElementById('bairro');
+            const cidade = document.getElementById('cidade');
+            
+            if (!cep.value || cep.value.replace(/\D/g, '').length !== 8) {
+                cep.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!logradouro.value.trim()) {
+                logradouro.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!numero.value.trim()) {
+                numero.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!bairro.value.trim()) {
+                bairro.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!cidade.value.trim()) {
+                cidade.classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Cadastrar paciente
+        document.getElementById('cadastroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validarFormulario()) {
+                // Coletar dados do formulário
+                const dadosPaciente = {
+                    nome: document.getElementById('nome').value,
+                    dataNascimento: document.getElementById('dataNascimento').value,
+                    idade: document.getElementById('idade').value,
+                    cpf: document.getElementById('cpf').value,
+                    rg: document.getElementById('rg').value,
+                    telefone: document.getElementById('telefone').value,
+                    email: document.getElementById('email').value,
+                    genero: document.getElementById('genero').value,
+                    estadoCivil: document.getElementById('estadoCivil').value,
+                    cep: document.getElementById('cep').value,
+                    logradouro: document.getElementById('logradouro').value,
+                    numero: document.getElementById('numero').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('cidade').value,
+                    tipoSanguineo: document.getElementById('tipoSanguineo').value,
+                    planoSaude: document.getElementById('planoSaude').value,
+                    alergias: document.getElementById('alergias').value,
+                    doencasPreexistentes: document.getElementById('doencasPreexistentes').value,
+                    medicamentos: document.getElementById('medicamentos').value,
+                    dataCadastro: new Date().toLocaleString('pt-BR')
+                };
+                
+                // Salvar no localStorage
+                let pacientes = JSON.parse(localStorage.getItem('pacientes') || '[]');
+                pacientes.push(dadosPaciente);
+                localStorage.setItem('pacientes', JSON.stringify(pacientes));
+                
+                // Mostrar mensagem de sucesso
+                mostrarAlerta('Paciente cadastrado com sucesso!', 'success');
+                
+                // Limpar formulário
+                document.getElementById('cadastroForm').reset();
+                document.getElementById('idade').value = '';
+                
+                // Mostrar resumo no console (para demonstração)
+                console.log('Dados do Paciente:', dadosPaciente);
+                console.log('Total de pacientes cadastrados:', pacientes.length);
+            } else {
+                mostrarAlerta('Por favor, preencha todos os campos obrigatórios corretamente.', 'danger');
+            }
+        });
+        
+        // Limpar formulário
+        document.getElementById('btnLimpar').addEventListener('click', function() {
+            if (confirm('Tem certeza que deseja limpar todos os campos?')) {
+                document.getElementById('cadastroForm').reset();
+                document.getElementById('idade').value = '';
+                document.querySelectorAll('.form-control, .form-select').forEach(field => {
+                    field.classList.remove('is-invalid');
+                });
+                mostrarAlerta('Formulário limpo com sucesso!', 'info');
+            }
+        });
+    </script>
+</body>
+</html>
