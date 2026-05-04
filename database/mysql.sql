@@ -60,9 +60,27 @@ CREATE TABLE informacoes_medicas (
 CREATE TABLE medicos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    crm VARCHAR(20)
+    crm VARCHAR(20) UNIQUE,
+    especialidade VARCHAR(50),
+    telefone VARCHAR(15),
+    ativo BOOLEAN DEFAULT TRUE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ========================================
+-- Tabela: funcionarios
+-- ========================================
+CREATE TABLE funcionarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    cargo VARCHAR(50),
+    telefone VARCHAR(15),
+    ativo BOOLEAN DEFAULT TRUE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ========================================
