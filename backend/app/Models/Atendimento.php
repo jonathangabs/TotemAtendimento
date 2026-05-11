@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Atendimento extends Model
+{
+    protected $table = 'atendimentos';
+
+    protected $fillable = [
+        'pacientes_id',
+        'medico_id',
+        'consultorio',
+        'status',
+        'data_inicio',
+        'data_fim'
+    ];
+
+    public $timestamps = false;
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class);
+    }   
+
+    public function medico()
+    {
+        return $this->belongsTo(Medico::class);
+    }
+}
