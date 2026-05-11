@@ -1,7 +1,6 @@
 <?php
+use Illuminate\Support\Facades\Route;
 
-use App\Models\Paciente;
-
-Route::get('/pacientes', function () {
-    return Paciente::all();
+Route::get('/teste', function () {
+    return 'FUNCIONOU';
 });
