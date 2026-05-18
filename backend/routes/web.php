@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 use App\Http\Controllers\AuthController;
 
 Route::get('/login', [AuthController::class, 'index']);
@@ -12,3 +13,17 @@ Route::get('/dashboard', function () {
 
     return 'Dashboard do médico';
 });
+=======
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AtendimentoController;
+
+Route::get('/teste', function () {
+    return 'FUNCIONOU';
+});
+
+Route::get('/painel', [AtendimentoController::class, 'painel'])->name('painel');
+
+Route::get('/chamadas/historico', [AtendimentoController::class, 'historico'])->name('chamadas.historico');
+
+Route::post('/atendimento/finalizar/{id}', [AtendimentoController::class, 'finalizar'])->name('atendimento.finalizar');
+>>>>>>> 5616b50 (Commit AB#38)
