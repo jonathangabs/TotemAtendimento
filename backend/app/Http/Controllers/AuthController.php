@@ -7,33 +7,40 @@ use App\Models\Medico;
 
 class AuthController extends Controller
 {
-    public function index()
-    {
-        return view('auth.login');
-    }
-    public function login(Request $request)
-    {
+public function login(Request $request)
+{
+    try {
+
         $medico = Medico::where('email', $request->email)
             ->where('senha', $request->senha)
             ->first();
 
-            if (!$medico) {
-                return back()->with('erro', 'Credenciais inválidas');
-            }
+        if (!$medico) {
 
-            session([
-                'medico_id' => $medico->id,
-                'medico_nome' =>$medico->nome
-            ]);
-
-            return redirect('/dashboard');
-    }
-        
-        public function logout()
-        {
-            session()->flush();
-
-            return redirect('/login');
+            return response()->json([
+                'success' => false,
+                'message' => 'Credenciais inválidas'
+            ], 401);
         }
-}
 
+        session([
+            'medico_id' => $medico->id,
+            'medico_nome' => $medico->nome
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Login realizado com sucesso',
+            'medico' => $medico
+        ], 200);
+
+    } catch (\Exception $e) {
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Erro interno do servidor',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+}

@@ -2,7 +2,6 @@
 use App\Http\Controllers\AuthController;
 
 Route::get('/login', [AuthController::class, 'index']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/dashboard', function () {
