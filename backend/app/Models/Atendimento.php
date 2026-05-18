@@ -21,11 +21,11 @@ class Atendimento extends Model
 
     public function paciente()
     {
-        return $this->belongsTo(Paciente::class);
+        return $this->belongsTo(Paciente::class, 'pacientes_id');
     }   
 
     public function medico()
     {
-        return $this->belongsTo(Medico::class);
+        return $this->belongsTo(Medico::class, 'medico_id');
     }
 }
