@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal do Médico — Sistema de Atendimento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══════════════ LOGIN ══════════════ -->
+<div id="screen-login">
+  <div class="login-wrapper">
+    <div class="login-card">
+
+      <div class="login-header">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" style="width:36px;height:36px;fill:white"><path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3zm9 11v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1h2z"/></svg>
+        </div>
+        <h2>Portal do Médico</h2>
+        <p>Sistema de Gerenciamento de Atendimentos</p>
+      </div>
+
+      <div class="login-body">
+        <div class="error-msg" id="errorMsg">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <span id="errorText">CRM ou senha inválidos.</span>
+        </div>
+
+        <div class="field-group">
+          <label for="crm">CRM<span>*</span></label>
+          <div class="input-wrap">
+            <svg class="fi" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+            <input type="text" id="crm" placeholder="Ex: SP-123456" maxlength="12" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="senha">Senha<span>*</span></label>
+          <div class="input-wrap">
+            <svg class="fi" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <input type="password" id="senha" placeholder="Digite sua senha" onkeydown="if(event.key==='Enter')handleLogin()" />
+            <button class="toggle-pass" onclick="toggleSenha()" type="button" aria-label="Mostrar/ocultar senha">
+              <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </button>
+          </div>
+          <a href="#" class="forgot-link" onclick="return false">Esqueci minha senha</a>
+        </div>
+
+        <button class="btn-login" id="btnLogin" onclick="handleLogin()">Entrar</button>
+      </div>
+
+      <div class="login-footer">
+        <div class="divider"><hr><span>sistema seguro</span><hr></div>
+        <div class="system-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          Acesso restrito a profissionais de saúde
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ DASHBOARD ══════════════ -->
+<div id="screen-dash">
+
+  <div class="session-warning" id="sessionWarning">
+    <span>⚠️ Sua sessão expira em <strong id="sessionCountdown">1:00</strong>. Deseja renovar?</span>
+    <button onclick="renewSession()">Renovar sessão</button>
+  </div>
+
+  <nav class="topbar">
+    <div class="topbar-left">
+      <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:white"><path d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3zm9 11v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1h2z"/></svg>
+      <h1>Portal do Médico</h1>
+    </div>
+    <div class="topbar-right">
+      <div class="poll-indicator">
+        <span class="poll-dot"></span>
+        <span id="pollCountdown">15s</span>
+      </div>
+      <div class="doc-badge">
+        <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span id="docName">—</span>
+      </div>
+      <button class="btn-logout" onclick="handleLogout()">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+        Sair
+      </button>
+    </div>
+  </nav>
+
+  <div class="dash-body">
+
+    <!-- Cards de estatísticas -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon blue">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <div class="stat-info"><p>Total hoje</p><h3 id="statTotal">0</h3></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+        </div>
+        <div class="stat-info"><p>Aguardando</p><h3 id="statWaiting">0</h3></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        </div>
+        <div class="stat-info"><p>Em atendimento</p><h3 id="statAttending">0</h3></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="stat-info"><p>Finalizados</p><h3 id="statDone">0</h3></div>
+      </div>
+    </div>
+
+    <!-- Fila de pacientes -->
+    <div class="section-header">
+      <h2><span class="live-dot"></span>Fila de Atendimento</h2>
+      <div class="filters">
+        <button class="filter-btn active" onclick="setFilter('all',this)">Todos</button>
+        <button class="filter-btn" onclick="setFilter('aguardando',this)">Aguardando</button>
+        <button class="filter-btn" onclick="setFilter('chamado',this)">Chamados</button>
+        <button class="filter-btn" onclick="setFilter('em_atendimento',this)">Em atendimento</button>
+        <button class="filter-btn" onclick="setFilter('finalizado',this)">Finalizados</button>
+      </div>
+    </div>
+
+    <div class="patient-table">
+      <div class="pt-head">
+        <div>Nº</div>
+        <div>Paciente</div>
+        <div>Senha</div>
+        <div class="col-q">Queixa principal</div>
+        <div>Status</div>
+        <div class="col-a" style="text-align:right">Ações</div>
+      </div>
+      <div id="patientList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ MODAL ══════════════ -->
+<div id="modal" class="modal-overlay" style="display:none" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span id="mName"></span>
+      </h3>
+      <button class="modal-close" onclick="closeModal()" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="info-grid">
+        <div class="info-item"><label>Senha</label><p id="mSenha"></p></div>
+        <div class="info-item"><label>Horário de chegada</label><p id="mChegada"></p></div>
+        <div class="info-item"><label>Idade</label><p id="mIdade"></p></div>
+        <div class="info-item"><label>Consultório atual</label><p id="mConsultorio"></p></div>
+      </div>
+      <div class="queixa-box">
+        <label>Queixa principal</label>
+        <p id="mQueixa"></p>
+      </div>
+      <div class="form-group">
+        <label>Atualizar status</label>
+        <select id="mStatus">
+          <option value="aguardando">Aguardando</option>
+          <option value="chamado">Chamado</option>
+          <option value="em_atendimento">Em atendimento</option>
+          <option value="finalizado">Finalizado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Associar consultório</label>
+        <select id="mConsultorioSel">
+          <option value="">— Selecionar —</option>
+          <option value="Consultório 01">Consultório 01</option>
+          <option value="Consultório 02">Consultório 02</option>
+          <option value="Consultório 03">Consultório 03</option>
+          <option value="Consultório 04">Consultório 04</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-sec" onclick="closeModal()">Cancelar</button>
+      <button class="btn-modal-pri" onclick="saveModal()">
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:white"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Salvar alterações
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ TOAST ══════════════ -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
