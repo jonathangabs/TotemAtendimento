@@ -35,6 +35,10 @@ class Paciente extends Model
     
     public function atendimentos()
     {
+<<<<<<< HEAD
         return $this->hasMany(Atendimento::class, 'paciente_id');
+=======
+        return $this->hasMany(Atendimento::class, 'pacientes_id');
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\Http\Controllers;
 
 use App\Models\Paciente;
@@ -7,6 +8,10 @@ use App\Models\Atendimento;
 use App\Models\Endereco;
 use App\Models\InformacaoMedica;
 use App\Models\Triagem;
+=======
+use App\Models\Paciente;
+use App\Models\Atendimento;
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +20,7 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+<<<<<<< HEAD
         'nome' => 'required|max:100',
         'cpf' => 'required|unique:pacientes',
         'telefone' => 'required',
@@ -25,6 +31,13 @@ class PacienteController extends Controller
         'bairro' => 'required',
         'cidade' => 'required'
     ]);
+=======
+            'nome' => 'required|max:100',
+            'cpf' => 'required|unique:pacientes',
+            'telefone' => 'required',
+            'email' => 'nullable|email'
+        ]);
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
 
         $paciente = DB::transaction(function () use ($request) {
 
@@ -44,6 +57,7 @@ class PacienteController extends Controller
                 'status' => 'aguardando'
             ]);
 
+<<<<<<< HEAD
             Endereco::create([
                 'paciente_id' => $paciente->id,
                 'cep' => $request->cep,
@@ -76,6 +90,10 @@ class PacienteController extends Controller
             Atendimento::create([
                 'paciente_id' => $paciente->id,
                 'medico_id' => null,
+=======
+            Atendimento::create([
+                'pacientes_id' => $paciente->id,
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
                 'status' => 'aguardando',
                 'data_inicio' => now()
             ]);

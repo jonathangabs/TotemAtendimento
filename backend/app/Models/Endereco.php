@@ -9,7 +9,11 @@ class Endereco extends Model
     protected $table = 'enderecos';
 
     protected $fillable = [
+<<<<<<< HEAD
         'paciente_id',
+=======
+        'pacientes_id',
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
         'cep',
         'logradouro',
         'numero',
@@ -18,6 +22,7 @@ class Endereco extends Model
     ];
 
     public $timestamps = false;
+<<<<<<< HEAD
 
     public function paciente()
     {
@@ -26,3 +31,6 @@ class Endereco extends Model
 }
 
 
+=======
+}
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924

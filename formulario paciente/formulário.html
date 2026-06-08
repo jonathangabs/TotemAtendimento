@@ -770,6 +770,7 @@
                     dataCadastro: new Date().toLocaleString('pt-BR')
                 };
 
+<<<<<<< HEAD
                 try {
 
                     const response = await fetch('/api/pacientes', {
@@ -830,6 +831,12 @@
                     alert('Erro ao cadastrar paciente.');
 
                 }
+=======
+                // Salvar no localStorage
+                let pacientes = JSON.parse(localStorage.getItem('pacientes') || '[]');
+                pacientes.push(dadosPaciente);
+                localStorage.setItem('pacientes', JSON.stringify(pacientes));
+>>>>>>> 2deb5b54f161ab5a70467eea16dcd98d18dc2924
 
                 // Mostrar mensagem de sucesso
                 mostrarAlerta('Paciente cadastrado com sucesso!', 'success');
